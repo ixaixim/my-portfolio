@@ -1,0 +1,5 @@
+theme: jekyll-theme-slate
+title: Ronan Sangouard's portfolio
+description: An overview of my main projects
+github:
+  is_project_page: false
