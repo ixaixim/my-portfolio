@@ -1,5 +1,6 @@
 theme: jekyll-theme-slate
-title: Ronan Sangouard's portfolio
+title: Neel Misciasci's portfolio
 description: An overview of my main projects
+"markdown.styles": [ "styles.css" ]
 github:
   is_project_page: false
