@@ -1,0 +1,32 @@
+ADVANCED DEEP LEARNING FOR PHYSICS (ADP)
+<span hidden>
+notes ADP: 
+given the landscape of a potential, and a starting point, where will the point end up?
+We constraint the point to move across the x line by equivalent distances.
+Along the y line we allow the potential to define the trajectory, since a force will be acting on the point.
+Physics optimization: minimize the potential with respect to the y increment. (F_0) 
+Depending on the initially sampled force we will have two possible symmetric paths followed (in picture is only represented one)
+Supervised learning: we need to generate data samples, therefore provide synthetic data of the problem (e.g. by using the physics optimization). Problem: these paths will be of two kinds: one up and one down, depending on the initialization of the force.
+Train a simple neural network to this data set.
+Test input data is generated from the same input distribution. Plot: 25 different starting points from the same distribution as train data. Problem: the supervised network tries to incorporate both the upper and lower solution, resulting in suboptimal solutions.
+Differentiable Physics: it is a data-driven model that also is aware of the potential landscape.Training works as follows: 
+- predict y trajectory of batch through NN.
+- compute potential of trajectory batch.
+- update NN weights in order to reduce potential.
+Zig-zag can be improved by using better NN hyperparams (here we used the same as the supervised case).
+Goal of DP and supervised learning: solve a differential equation through data-driven techniques. The DP solves the problem of having multiple suboptimal solutions due to averaging of supervised techique.
+
+What is the advantage of DP with respect to a classical solver? In this exercise there is no advantage since we use the classical solver as reference. Nonetheless, in more complex settings, the classical solution might not be accurate, and the DP solver could surpass this technique.
+</span>
+
+
+SEMICONDUCTORS
+
+<span hidden>
+description of project: use the Quantum Expresso suite to perform DFT simulations on a simple material such as silicon.
+Introduction of problem: want to compute the energy states of a quantum mechanical object. The energy states are available only after solving for the wavefunction through its Schroedinger equation.
+DFT does this: it solves approximately the Scroedinger equation for such system.
+It relies on a theorem by Hohenberg and Kohn, according to which the lowest state energy of a system is a functional of the density of electrons.
+DFT relies on a self consistent scheme to solve the wave equation: Solve the Kohn-Sham equations for single electrons and then confront the initial density with the density obtained from the current wavefunction.
+What is an exchange correlation functional? It is the term in the Schroedinger eq. that takes care of spin and residual electron-electron interactions. Quantum Expresso needs to approximate this term.
+</span>
