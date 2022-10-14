@@ -1,6 +1,5 @@
 theme: jekyll-theme-slate
 title: Neel Misciasci's portfolio
 description: An overview of my main projects
-"markdown.styles": [ "styles.css" ]
 github:
   is_project_page: false
