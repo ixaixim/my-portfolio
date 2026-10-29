@@ -1,27 +1,25 @@
 // Project data: the rolling bar and the detail dialog are both built from this list.
 // `thumb` is the card image; `images` are shown in the dialog.
 // Optional: `short` replaces the title on the card, `tag` is shown next to the year,
-// `thumbFull` fills the card image area edge to edge, and `wide: true` on an image spans the dialog width.
+// and `wide: true` on an image spans the dialog width.
 const projects = [
   {
     year: "2026",
     tag: "Paper",
     title: "Exploiting the Weyl-Chamber Structure for Hardware-Aware Quantum Circuit Compression",
-    short: "Hardware-Aware Quantum Circuit Compression via the Weyl Chamber",
+    short: "Hardware-Aware Quantum Circuit Compression",
     org: "Volkswagen Group & TU Munich",
     orgs: [{ name: "Preprint, arXiv:2610.32812 (2026)", url: "https://arxiv.org/abs/2610.32812" }],
     people: "<strong>N. Misciasci</strong>, I. N. M. Le, C. B. Mendl",
     thumb: "images/WEYL/weyl_chamber.svg",
     bullets: [
-      "Compressing quantum circuits with tensor networks makes long-time simulation of quantum many-body dynamics possible on near-term hardware. Riemannian optimization does this over generic two-qubit gates, but each gate must then be decomposed into the hardware's native gates, which eats into the compression gain.",
-      "We show that the optimized gates already have a predictable structure in the <strong>Weyl chamber</strong>: near-R<sub>ZZ</sub> for the Ising model and near-fSim for the Heisenberg XXZ model.",
-      "Building on this, we optimize directly over the <strong>native gate set</strong>, with far fewer parameters. Gradients come from matrix product operator (MPO) contractions of each gate's environment.",
-      "For 50-qubit chains: in the Ising model, the small residual Weyl coordinates turn out to be essential for high compression. In the Heisenberg XXZ model, native fSim circuits are more efficient and reach lower loss at equal depth.",
+      "Tensor-network circuit compression produces generic two-qubit gates, which then have to be decomposed into the hardware's native gates.",
+      "We show that the optimized gates have a predictable <strong>Weyl-chamber</strong> structure (near-R<sub>ZZ</sub> for Ising, near-fSim for Heisenberg XXZ) and optimize directly over <strong>native gates</strong> instead.",
+      "For 50-qubit Heisenberg chains, the native circuits reach lower error at equal depth.",
     ],
     images: [
-      { src: "images/WEYL/weyl_chamber.svg", caption: "Weyl chamber of two-qubit gates up to local equivalence. R<sub>ZZ</sub>(θ) lies on the I–CNOT edge (orange); fSim(θ, φ) covers the face α<sub>x</sub> = α<sub>y</sub> (I–iSWAP–SWAP, teal)." },
-      { src: "images/WEYL/heisenberg_weyl_coordinates.png", caption: "Weyl coordinates of the Riemannian-optimized gates for the Heisenberg XXZ model (N = 50). α<sub>x</sub> ≈ α<sub>y</sub> is the signature of an fSim gate, and α<sub>x</sub> ≈ 2|α<sub>z</sub>| reflects the coupling ratio J/|J<sub>z</sub>| = 2." },
-      { src: "images/WEYL/heisenberg_results.png", caption: "Heisenberg XXZ model, N = 50: loss versus number of native two-qubit gate layers. Hardware-aware optimization (orange) reaches lower loss than Riemannian optimization (blue) over most of the depth range. Dashed lines show the initial Trotter circuits." },
+      { src: "images/WEYL/weyl_chamber.svg", caption: "Weyl chamber of two-qubit gates. Native gates: R<sub>ZZ</sub> (orange edge) and fSim (teal face)." },
+      { src: "images/WEYL/heisenberg_results.png", caption: "Heisenberg XXZ model, 50 qubits: loss versus number of native two-qubit layers, hardware-aware (orange) versus Riemannian (blue) optimization." },
     ],
     links: [
       { label: "arXiv", url: "https://arxiv.org/abs/2610.32812" },
@@ -35,20 +33,16 @@ const projects = [
     short: "Quantum Diagonalization of Magnets on IBM Hardware",
     org: "Volkswagen Group × IBM collaboration",
     orgs: [{ name: "Entropy 28(4), 367 (2026)", url: "https://doi.org/10.3390/e28040367" }],
-    people: "<strong>N. Misciasci</strong>, R. Firt, J. E. Mueller, T. Friedhoff, C. Onah, A. Schulze, S. Mostame · a Volkswagen Group and IBM collaboration",
+    people: "<strong>N. Misciasci</strong>, R. Firt, J. E. Mueller, T. Friedhoff, C. Onah, A. Schulze, S. Mostame",
     thumb: "images/SKQD/ground_state_sparsity.jpg",
     bullets: [
-      "<strong>Motivation:</strong> the magnets in electric car motors. This study is one step in a much larger effort whose long-term goal is to develop and predict new magnetic materials with quantum computers.",
-      "Together with <strong>IBM</strong>, we evaluate Sample-based Krylov Quantum Diagonalization (SKQD) on 1D and 2D Heisenberg models, the standard models of quantum magnetism.",
-      "SKQD is efficient when the ground state is sparse, but magnetic ground states are often dense. We map the ground-state sparsity to see where the method should struggle.",
-      "To compute magnetization curves, we built initial states from <strong>W states</strong> that target a chosen magnetization sector, and swept over the sectors.",
-      "On IBM quantum hardware, 18- and 30-qubit chains reproduce the expected magnetization curves. On the IBM Nighthawk processor, we ran a 64-qubit 8×8 lattice modeled on the quasi-2D magnet [CuCl(pyz)<sub>2</sub>](BF<sub>4</sub>).",
-      "In 2D, classical tensor-network methods quickly become expensive: the bond dimension DMRG needs grows exponentially with the lattice width, and contracting PEPS is #P-hard. This is where quantum computers could help.",
+      "<strong>Motivation:</strong> magnets for electric car motors. This study is one step in a larger effort to develop and predict new magnetic materials with quantum computers.",
+      "A <strong>Volkswagen–IBM collaboration</strong> evaluating Sample-based Krylov Quantum Diagonalization (SKQD) on Heisenberg models, with runs of up to 64 qubits on IBM quantum hardware.",
+      "In 2D, such materials quickly become hard for classical tensor-network methods, which is where quantum computers could help.",
     ],
     images: [
-      { src: "images/SKQD/ground_state_sparsity.jpg", caption: "Ground-state sparsity of a 20-spin Heisenberg model in the (Δ, h<sub>z</sub>) plane, shown as the logarithm of the inverse participation ratio (IPR). In the red regions the ground state is dense, which is where SKQD is expected to struggle." },
-      { src: "images/SKQD/w_state_circuit.jpg", caption: "Circuit that prepares an initial state in a chosen magnetization sector from W states (here 6 qubits built from two 3-qubit W states). It lets SKQD sweep over the magnetization sectors." },
-      { src: "images/SKQD/magnetization_energy_8x8.png", caption: "64-qubit 8×8 lattice of [CuCl(pyz)<sub>2</sub>](BF<sub>4</sub>) on IBM's Nighthawk processor: relative magnetization (A) and ground-state energy (B) versus magnetic field, SKQD compared with DMRG. Lattices like this are already hard for tensor-network methods, since the required bond dimension grows exponentially with the lattice width." },
+      { src: "images/SKQD/ground_state_sparsity.jpg", caption: "Ground-state sparsity of a 20-spin Heisenberg model. In the red regions the ground state is dense, which makes it harder for SKQD." },
+      { src: "images/SKQD/magnetization_energy_8x8.png", caption: "64-qubit 8×8 lattice of [CuCl(pyz)<sub>2</sub>](BF<sub>4</sub>) on IBM Nighthawk: magnetization and energy versus field, SKQD versus DMRG. In 2D, the cost of tensor-network methods grows exponentially with the lattice width." },
     ],
     links: [
       { label: "Paper", url: "https://doi.org/10.3390/e28040367" },
@@ -62,18 +56,15 @@ const projects = [
     org: "Volkswagen Group · IEEE QCE 2025",
     orgs: [{ name: "2025 IEEE International Conference on Quantum Computing and Engineering (QCE), pp. 2149–2160", url: "https://doi.org/10.1109/QCE65121.2025.00235" }],
     people: "C. Onah, <strong>N. Misciasci</strong>, C. Othmer, K. Michielsen",
-    thumb: "images/QUEST/windbreaking_thumb.jpg",
-    thumbFull: true,
+    thumb: "images/QUEST/waas_app.png",
     bullets: [
-      "<strong>Windbreaking-as-a-Service (WaaS):</strong> a larger \"windbreaker\" vehicle shields a \"windsurfer\" vehicle from the wind, which reduces drag and energy consumption. An app could pair drivers who share a route.",
-      "QUEST is the computational framework behind the pairing: matching windbreakers to windsurfers under timing, speed and vehicle-class constraints, formulated as a mixed-integer quadratic problem.",
-      "For a single-segment prototype, we verified the optimum classically (Hungarian algorithm, Gurobi, brute-force enumeration), then rewrote the problem as a QUBO / Ising Hamiltonian and solved it with <strong>QAOA on IBM quantum hardware</strong>, which recovered the optimal assignment.",
-      "Extrapolating the measured runtimes, the quantum solver would overtake Gurobi at about 16 surfer–breaker pairs, a problem that needs about 256 qubits. A quantum speedup remains unproven.",
+      "<strong>Windbreaking-as-a-Service:</strong> a larger vehicle shields a smaller one from the wind, reducing drag and energy use. An app could pair drivers who share a route.",
+      "We formulated the pairing as an optimization problem (QUBO) and solved it with <strong>QAOA on IBM quantum hardware</strong>, recovering the classical optimum.",
+      "Extrapolated runtimes suggest a crossover with the classical Gurobi solver at about 16 pairs (about 256 qubits).",
     ],
     images: [
-      { src: "images/QUEST/windbreaking.jpg", caption: "Windbreaking in action: the windbreaker shields the windsurfer from the wind.", wide: true },
-      { src: "images/QUEST/waas_app.png", caption: "A possible realization of the WaaS app: suitable windbreakers nearby, with the CO<sub>2</sub> saved by each pairing." },
-      { src: "images/QUEST/runtime_gurobi_qaoa.png", caption: "Runtime of the Gurobi QUBO solver versus quantum hardware time for depth-4 QAOA, with exponential fits. The fits cross at about 16 surfer–breaker pairs (worst case assumed for the quantum runtime)." },
+      { src: "images/QUEST/windbreaking.jpg", caption: "Windbreaking in action.", wide: true },
+      { src: "images/QUEST/runtime_gurobi_qaoa.png", caption: "Runtime of the classical Gurobi solver versus QAOA on quantum hardware, with the extrapolated crossover.", wide: true },
     ],
     links: [
       { label: "IEEE", url: "https://doi.org/10.1109/QCE65121.2025.00235" },
@@ -87,17 +78,15 @@ const projects = [
     short: "AUGUR: Finding Optimal Adsorption Sites with GNNs",
     org: "TU Munich · npj Computational Materials",
     orgs: [{ name: "npj Computational Materials 11, 136 (2025)", url: "https://doi.org/10.1038/s41524-025-01630-5" }],
-    people: "I. Kouroudis, Poonam, <strong>N. Misciasci</strong>, F. Mayr, L. Müller, Z. Gu, A. Gagliardi · Chair of Simulation of Nanosystems for Energy Conversion, TU Munich",
+    people: "I. Kouroudis, Poonam, <strong>N. Misciasci</strong>, F. Mayr, L. Müller, Z. Gu, A. Gagliardi",
     thumb: "images/AUGUR/pt9_cluster.png",
     bullets: [
-      "Finding where a molecule binds best on a cluster or surface (the optimal adsorption site) normally takes many expensive density functional theory (DFT) calculations.",
-      "<strong>AUGUR</strong> (Aware of Uncertainty Graph Unit Regression) combines <strong>graph neural networks</strong> and <strong>Gaussian processes</strong> into a symmetry-aware energy predictor with built-in uncertainty quantification.",
-      "Used as the surrogate in a data-efficient <strong>Bayesian optimization</strong>, it finds the optimal adsorption sites of large, complex clusters in far fewer iterations than state-of-the-art approaches, without hand-crafted features.",
-      "Graph pooling lets one model handle molecules of different sizes, so a model trained on small, cheap systems can predict energies of expensive ones. Case studies: platinum Chini clusters, a (ZnO)<sub>78</sub> nanocluster, a covalent organic framework and defective silicene.",
-      "My contributions: software, methodology, data curation, formal analysis and investigation.",
+      "Finding where a molecule binds best on a cluster or surface usually takes many expensive DFT calculations.",
+      "AUGUR combines <strong>graph neural networks</strong> and <strong>Gaussian processes</strong> into an energy predictor with built-in uncertainty, used as the surrogate in a <strong>Bayesian optimization</strong>.",
+      "It finds the optimal adsorption sites of large clusters in far fewer iterations than state-of-the-art approaches. My contributions: software, methodology, data curation and analysis.",
     ],
     images: [
-      { src: "images/AUGUR/pt9_zn_energy_surface.jpg", caption: "Pt<sub>9</sub>–Zn cluster: energy surface predicted by AUGUR in eV (left), the most favorable adsorption position of the Zn atom (top middle), and the uncertainty of the prediction (right).", wide: true },
+      { src: "images/AUGUR/pt9_zn_energy_surface.jpg", caption: "Pt<sub>9</sub>–Zn cluster: predicted energy surface (left), best adsorption site (top) and uncertainty (right).", wide: true },
     ],
     links: [{ label: "Paper", url: "https://doi.org/10.1038/s41524-025-01630-5" }],
   },
@@ -216,10 +205,10 @@ const track = document.getElementById("project-track");
 const dialog = document.getElementById("project-dialog");
 const dialogContent = document.getElementById("dialog-content");
 
-function cardHTML(p, i) {
+function cardHTML(p, i, isCopy) {
   return `
-    <button class="card" type="button" data-index="${i}">
-      <img class="card-thumb${p.thumbFull ? " full" : ""}" src="${p.thumb}" alt="" loading="lazy">
+    <button class="card" type="button" data-index="${i}"${isCopy ? ' tabindex="-1"' : ""}>
+      <img class="card-thumb" src="${p.thumb}" alt="" loading="lazy" draggable="false">
       <span class="card-body">
         <span class="card-year">${p.year}${p.tag ? ` · ${p.tag}` : ""}</span>
         <span class="card-title">${p.short || p.title}</span>
@@ -229,12 +218,11 @@ function cardHTML(p, i) {
 }
 
 function renderTrack() {
-  const cards = projects.map(cardHTML).join("");
-  // The second copy makes the loop seamless; it is hidden from assistive tech and keyboard.
+  // The second copy makes the loop seamless. It stays clickable, but is hidden
+  // from assistive tech and skipped by the Tab key.
   track.innerHTML = `
-    <div class="marquee-group">${cards}</div>
-    <div class="marquee-group" aria-hidden="true" inert>${cards}</div>`;
-  track.style.setProperty("--duration", `${projects.length * 9}s`);
+    <div class="marquee-group">${projects.map((p, i) => cardHTML(p, i, false)).join("")}</div>
+    <div class="marquee-group" aria-hidden="true">${projects.map((p, i) => cardHTML(p, i, true)).join("")}</div>`;
 }
 
 function openProject(p) {
@@ -267,9 +255,146 @@ function openProject(p) {
   dialog.scrollTop = 0;
 }
 
+// ---------- Slider ----------
+// The track is moved with a transform by `pos` pixels. It advances on its own and
+// can be dragged, swiped, scrolled with a trackpad, or moved with the arrows and the
+// range input. After any interaction it waits a moment and then continues.
+const marquee = document.querySelector(".marquee");
+const range = document.getElementById("project-range");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const SPEED = 40; // px per second
+const RESUME_DELAY = 2500; // ms after an interaction
+
+let pos = 0;
+let loopWidth = 1; // width of one copy of the cards
+let hovering = false;
+let keyboardFocus = false;
+let lastInteraction = -Infinity;
+let tween = null;
+let drag = null;
+let suppressClick = false;
+let openedByPointer = false;
+
+function measure() {
+  loopWidth = track.firstElementChild.offsetWidth || 1;
+}
+
+function step() {
+  const cards = track.querySelectorAll(".card");
+  return cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left;
+}
+
+function interacted() {
+  lastInteraction = performance.now();
+}
+
+function paused(now) {
+  return (
+    hovering || keyboardFocus || drag?.active || dialog.open || reducedMotion.matches ||
+    now - lastInteraction < RESUME_DELAY
+  );
+}
+
+function render() {
+  pos = ((pos % loopWidth) + loopWidth) % loopWidth;
+  track.style.transform = `translate3d(${-pos}px, 0, 0)`;
+  if (document.activeElement !== range) range.value = Math.round((pos / loopWidth) * 1000);
+}
+
+let last = performance.now();
+function tick(now) {
+  const dt = Math.min(now - last, 50);
+  last = now;
+  if (tween) {
+    const t = Math.min((now - tween.start) / tween.duration, 1);
+    pos = tween.from + (tween.to - tween.from) * (1 - Math.pow(1 - t, 3));
+    if (t === 1) tween = null;
+    interacted();
+  } else if (!paused(now)) {
+    pos += (SPEED * dt) / 1000;
+  }
+  render();
+  requestAnimationFrame(tick);
+}
+
+function slideBy(direction) {
+  const from = tween ? tween.to : pos;
+  tween = { from: pos, to: from + direction * step(), start: performance.now(), duration: 450 };
+}
+
+// Hover pauses the slider so a card can be clicked. pointermove (not pointerenter)
+// re-arms it, so closing a dialog over the band does not leave it paused.
+marquee.addEventListener("pointermove", (e) => {
+  if (e.pointerType === "mouse") hovering = true;
+});
+marquee.addEventListener("pointerleave", () => (hovering = false));
+
+// Drag with the mouse or a finger. touch-action: pan-y in the CSS keeps vertical page scrolling.
+marquee.addEventListener("pointerdown", (e) => {
+  if (e.button !== 0) return;
+  tween = null;
+  drag = { id: e.pointerId, x: e.clientX, pos, active: false };
+});
+marquee.addEventListener("pointermove", (e) => {
+  if (!drag || e.pointerId !== drag.id) return;
+  const dx = e.clientX - drag.x;
+  if (!drag.active && Math.abs(dx) > 6) {
+    drag.active = true;
+    marquee.setPointerCapture(e.pointerId);
+    marquee.classList.add("dragging");
+  }
+  if (drag.active) pos = drag.pos - dx;
+});
+function endDrag(e) {
+  if (!drag || e.pointerId !== drag.id) return;
+  if (drag.active) {
+    suppressClick = true; // the release after a drag is not a click on a card
+    setTimeout(() => (suppressClick = false));
+    marquee.classList.remove("dragging");
+    interacted();
+  }
+  drag = null;
+}
+marquee.addEventListener("pointerup", endDrag);
+marquee.addEventListener("pointercancel", endDrag);
+
+// Horizontal trackpad scrolling.
+marquee.addEventListener(
+  "wheel",
+  (e) => {
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    tween = null;
+    pos += e.deltaX;
+    interacted();
+  },
+  { passive: false }
+);
+
+// Keyboard: pause while a card has visible focus and keep that card on screen.
+track.addEventListener("focusin", (e) => {
+  const card = e.target.closest(".card");
+  if (!card || !card.matches(":focus-visible")) return;
+  keyboardFocus = true;
+  marquee.scrollLeft = 0; // undo the browser's own scroll-into-view
+  const offset = card.offsetLeft - pos;
+  if (offset < 0 || offset + card.offsetWidth > marquee.clientWidth) pos = card.offsetLeft - 24;
+});
+track.addEventListener("focusout", () => (keyboardFocus = false));
+
+document.getElementById("project-prev").addEventListener("click", () => slideBy(-1));
+document.getElementById("project-next").addEventListener("click", () => slideBy(1));
+range.addEventListener("input", () => {
+  tween = null;
+  pos = (range.value / 1000) * loopWidth;
+  interacted();
+});
+
 track.addEventListener("click", (e) => {
   const card = e.target.closest(".card");
-  if (card) openProject(projects[card.dataset.index]);
+  if (!card || suppressClick) return;
+  openedByPointer = e.detail > 0;
+  openProject(projects[card.dataset.index]);
 });
 
 dialog.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
@@ -279,4 +404,14 @@ dialog.addEventListener("click", (e) => {
   if (e.target === dialog) dialog.close();
 });
 
+// On close the dialog hands focus back to the card. If it was opened with the mouse,
+// drop that focus so the slider continues right away.
+dialog.addEventListener("close", () => {
+  hovering = false;
+  if (openedByPointer && document.activeElement?.closest(".card")) document.activeElement.blur();
+});
+
 renderTrack();
+measure();
+window.addEventListener("resize", measure);
+requestAnimationFrame(tick);

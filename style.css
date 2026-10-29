@@ -289,29 +289,64 @@ h3 {
 .marquee {
   overflow: hidden;
   padding: 8px 0 12px;
+  cursor: grab;
+  touch-action: pan-y;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+
+.marquee.dragging {
+  cursor: grabbing;
+}
+
+.marquee.dragging .card {
+  pointer-events: none;
 }
 
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee var(--duration, 60s) linear infinite;
-}
-
-.marquee:hover .marquee-track,
-.marquee:focus-within .marquee-track {
-  animation-play-state: paused;
+  will-change: transform;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .marquee-group {
   display: flex;
 }
 
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
+.slider-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.slider-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.slider-arrow:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.slider-range {
+  width: min(320px, 50vw);
+  accent-color: var(--accent);
+  cursor: pointer;
 }
 
 .card {
@@ -352,11 +387,6 @@ h3 {
   padding: 14px 16px 18px;
 }
 
-.card-thumb.full {
-  padding: 0;
-  object-fit: cover;
-}
-
 .card-body,
 .card-year,
 .card-org {
@@ -384,22 +414,6 @@ h3 {
   margin: 0;
   color: var(--muted);
   font-size: 0.85rem;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee {
-    overflow-x: auto;
-    -webkit-mask-image: none;
-    mask-image: none;
-  }
-
-  .marquee-track {
-    animation: none;
-  }
-
-  .marquee-group[aria-hidden="true"] {
-    display: none;
-  }
 }
 
 /* ---------- Project dialog ---------- */
