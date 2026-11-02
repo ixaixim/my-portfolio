@@ -258,6 +258,30 @@ h3 {
   text-align: center;
 }
 
+/* ---------- Recent work ---------- */
+.recent {
+  padding: 48px 0 56px;
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.featured-grid .card {
+  width: auto;
+  margin-right: 0;
+}
+
+.featured-grid .card-thumb {
+  height: 200px;
+}
+
+.featured-grid .card-title {
+  -webkit-line-clamp: 3;
+}
+
 /* ---------- Projects band ---------- */
 .projects {
   padding: 48px 0 56px;
@@ -723,6 +747,10 @@ h3 {
 
   .card {
     width: 250px;
+  }
+
+  .featured-grid {
+    grid-template-columns: 1fr;
   }
 
   .dialog-body {

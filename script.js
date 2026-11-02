@@ -1,11 +1,13 @@
-// Project data: the rolling bar and the detail dialog are both built from this list.
-// `thumb` is the card image; `images` are shown in the dialog.
-// Optional: `short` replaces the title on the card, `tag` is shown next to the year,
+// Project data: the Recent Work panel, the rolling bar and the detail dialog are all built
+// from this list. `thumb` is the card image; `images` are shown in the dialog.
+// Optional: `featured: true` puts the project in Recent Work instead of the rolling bar,
+// `short` replaces the title on the card, `tag` is shown next to the year,
 // and `wide: true` on an image spans the dialog width.
 const projects = [
   {
     year: "2026",
     tag: "Paper",
+    featured: true,
     title: "Exploiting the Weyl-Chamber Structure for Hardware-Aware Quantum Circuit Compression",
     short: "Hardware-Aware Quantum Circuit Compression",
     org: "Volkswagen Group & TU Munich",
@@ -29,6 +31,7 @@ const projects = [
   {
     year: "2026",
     tag: "Paper",
+    featured: true,
     title: "Evaluating Sample-Based Krylov Quantum Diagonalization for Heisenberg Models with Applications to Materials Science",
     short: "Quantum Diagonalization of Magnets on IBM Hardware",
     org: "Volkswagen Group × IBM collaboration",
@@ -74,6 +77,7 @@ const projects = [
   {
     year: "2025",
     tag: "Paper",
+    featured: true,
     title: "AUGUR, a Flexible and Efficient Optimization Algorithm for Identification of Optimal Adsorption Sites",
     short: "AUGUR: Finding Optimal Adsorption Sites with GNNs",
     org: "TU Munich · npj Computational Materials",
@@ -201,6 +205,7 @@ const projects = [
   },
 ];
 
+const featuredGrid = document.getElementById("featured-grid");
 const track = document.getElementById("project-track");
 const dialog = document.getElementById("project-dialog");
 const dialogContent = document.getElementById("dialog-content");
@@ -217,12 +222,20 @@ function cardHTML(p, i, isCopy) {
     </button>`;
 }
 
-function renderTrack() {
+// Cards keep their index into `projects`, so both sections open the right dialog.
+function renderCards() {
+  const indexed = projects.map((p, i) => ({ p, i }));
+  featuredGrid.innerHTML = indexed
+    .filter(({ p }) => p.featured)
+    .map(({ p, i }) => cardHTML(p, i, false))
+    .join("");
+
   // The second copy makes the loop seamless. It stays clickable, but is hidden
   // from assistive tech and skipped by the Tab key.
+  const others = indexed.filter(({ p }) => !p.featured);
   track.innerHTML = `
-    <div class="marquee-group">${projects.map((p, i) => cardHTML(p, i, false)).join("")}</div>
-    <div class="marquee-group" aria-hidden="true">${projects.map((p, i) => cardHTML(p, i, true)).join("")}</div>`;
+    <div class="marquee-group">${others.map(({ p, i }) => cardHTML(p, i, false)).join("")}</div>
+    <div class="marquee-group" aria-hidden="true">${others.map(({ p, i }) => cardHTML(p, i, true)).join("")}</div>`;
 }
 
 function openProject(p) {
@@ -390,12 +403,14 @@ range.addEventListener("input", () => {
   interacted();
 });
 
-track.addEventListener("click", (e) => {
+function onCardClick(e) {
   const card = e.target.closest(".card");
   if (!card || suppressClick) return;
   openedByPointer = e.detail > 0;
   openProject(projects[card.dataset.index]);
-});
+}
+track.addEventListener("click", onCardClick);
+featuredGrid.addEventListener("click", onCardClick);
 
 dialog.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
 
@@ -411,7 +426,7 @@ dialog.addEventListener("close", () => {
   if (openedByPointer && document.activeElement?.closest(".card")) document.activeElement.blur();
 });
 
-renderTrack();
+renderCards();
 measure();
 window.addEventListener("resize", measure);
 requestAnimationFrame(tick);
